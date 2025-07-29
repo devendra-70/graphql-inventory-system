@@ -3,6 +3,9 @@ package com.graph.graphql_inventory.controller;
 import com.graph.graphql_inventory.entity.Product;
 import com.graph.graphql_inventory.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/products")
+@Controller
 public class ProductControllerGraphql {
 
     @Autowired
@@ -21,13 +23,13 @@ public class ProductControllerGraphql {
         this.productService=productService;
     }
 
-    @GetMapping
+    @QueryMapping
     public List<Product> getProducts(){
         return productService.getProducts();
     }
 
-    @GetMapping("/{category}")
-    public List<Product> getProductsByCategory(@PathVariable String category){
+    @QueryMapping
+    public List<Product> getProductsByCategory(@Argument String category){
         return productService.getProductsByCategory(category);
     }
 
