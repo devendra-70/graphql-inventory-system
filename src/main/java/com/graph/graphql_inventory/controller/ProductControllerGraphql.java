@@ -39,6 +39,11 @@ public class ProductControllerGraphql {
         return productService.updateStock(id,stock);
     }
 
+    @MutationMapping
+    public Product receiveNewShipment(@Argument int id,@Argument int quantity){
+        return productService.recieveNewShipment(id,quantity);
+    }
+
 
 
 }
