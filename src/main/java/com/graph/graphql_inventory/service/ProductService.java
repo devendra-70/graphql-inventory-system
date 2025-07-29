@@ -25,4 +25,21 @@ public class ProductService {
         return productRepository.findByCategory(category);
     }
 
+    //for sales team
+    public Product updateStock(int id,int quantity){
+        Product exisitngProduct = productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Product not found with given ID : "+id));
+        exisitngProduct.setStock(quantity);
+        return productRepository.save(exisitngProduct);
+    }
+
+    //for warehouse shipment
+    public Product recieveNewShipment(int id,int quantity){
+        Product exisitngProduct = productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Product not found with given ID : "+id));
+
+        exisitngProduct.setStock(exisitngProduct.getStock()+quantity);
+        return productRepository.save(exisitngProduct);
+    }
+
 }
